@@ -8,17 +8,17 @@ import { rhythm } from "../utils/typography"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
+  const posts = data.allContentfulPost.edges
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
       {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
+        const title = node.title || node.slug
         return (
           <article
-            key={node.fields.slug}
+            key={node.slug}
             itemScope
             itemType="http://schema.org/Article"
           >
@@ -30,21 +30,15 @@ const BlogIndex = ({ data, location }) => {
               >
                 <Link
                   style={{ boxShadow: `none` }}
-                  to={node.fields.slug}
+                  to={node.slug}
                   itemProp="url"
                 >
                   <span itemProp="headline">{title}</span>
                 </Link>
               </h3>
-              <small>{node.frontmatter.date}</small>
             </header>
             <section>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-                itemProp="description"
-              />
+              <p>{node.subtitle}</p>
             </section>
           </article>
         )
@@ -62,18 +56,13 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allContentfulPost {
       edges {
         node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
-          }
+          title
+          subtitle
+          author
+          slug
         }
       }
     }
