@@ -16,7 +16,7 @@ const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
     <Layout location={location} title={siteTitle}>
       <SEO title={post.title} description={post.subtitle} />
       <article itemScope itemType="http://schema.org/Article">
-        <img src={post.image?.fluid?.src} />
+        <img src={post.image?.fluid?.src} alt="" />
         <header>
           <h1
             itemProp="headline"
