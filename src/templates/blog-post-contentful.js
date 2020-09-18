@@ -89,7 +89,7 @@ export const pageQuery = graphql`
       author
       image {
         fluid {
-          src
+          ...GatsbyContentfulFluid
         }
       }
       content {
