@@ -2,16 +2,17 @@ const dotenv = require("dotenv").config()
 
 module.exports = {
   siteMetadata: {
-    title: `Michaels blog`,
+    title: `My blog`,
     author: {
-      name: `Michael Olsen`,
-      summary: `who lives and works in Oslo building useful things.`,
+      name: `the Author`,
+      summary: `who lives on planet earth building useful things.`,
     },
-    description: `Michael Olsens personal blog.`,
-    siteUrl: `https://michaelolsen.tech/`,
+    description: `My personal blog.`,
+    siteUrl: "",
     social: {
-      twitter: `olsenlisj`,
+      twitter: `twitter`,
     },
+    icon: `assets/icon.png`,
   },
   plugins: [
     {
@@ -51,19 +52,6 @@ module.exports = {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
       },
     },
-    `gatsby-plugin-feed`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `assets/icon.png`,
-      },
-    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-typography`,
@@ -77,7 +65,7 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `3wcnasmwco5p`,
+        spaceId: `YOUR_SPACE_ID_GOES_HERE`,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },

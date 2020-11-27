@@ -8,6 +8,8 @@ import { rhythm } from "../utils/typography"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
+  if (!data.allContentfulPost || data.allContentfulPost.length === 0)
+    return "No posts yet"
   const posts = data.allContentfulPost.edges
 
   return (
