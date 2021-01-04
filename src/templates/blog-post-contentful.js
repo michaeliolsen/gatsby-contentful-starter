@@ -1,17 +1,35 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-
+import { BLOCKS } from "@contentful/rich-text-types"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
 
+function embeddedAsset(node) {
+  return (
+    <img
+      style={{
+        maxWidth: "100%",
+      }}
+      src={node?.data?.target?.fields?.file["en-US"]?.url}
+      alt=""
+    />
+  )
+}
+
 const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
   const post = data.contentfulPost
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
-  console.log(previous, next)
-  console.log(post)
+  const json = post?.content?.internal?.content
+  const docContent = json ? JSON.parse(json) : null
+  const options = {
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: node => embeddedAsset(node),
+    },
+  }
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title={post.title} description={post.subtitle} />
@@ -28,12 +46,7 @@ const BlogPostContentfulTemplate = ({ data, pageContext, location }) => {
             {post.title}
           </h1>
         </header>
-        <section
-          dangerouslySetInnerHTML={{
-            __html: post.content.childContentfulRichText.html,
-          }}
-          itemProp="articleBody"
-        />
+        {documentToReactComponents(docContent, options)}
         <hr
           style={{
             marginBottom: rhythm(1),
@@ -89,12 +102,12 @@ export const pageQuery = graphql`
       author
       image {
         fluid {
-          ...GatsbyContentfulFluid
+          src
         }
       }
       content {
-        childContentfulRichText {
-          html
+        internal {
+          content
         }
       }
     }

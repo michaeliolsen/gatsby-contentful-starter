@@ -8,7 +8,7 @@ module.exports = {
       summary: `who lives on planet earth building useful things.`,
     },
     description: `My personal blog.`,
-    siteUrl: "",
+    siteUrl: "https://github.com/michaeliolsen/gatsby-contentful-starter/",
     social: {
       twitter: `twitter`,
     },
@@ -69,6 +69,5 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
-    `@contentful/gatsby-transformer-contentful-richtext`,
   ],
 }
